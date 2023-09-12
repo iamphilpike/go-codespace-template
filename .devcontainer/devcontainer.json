@@ -1,20 +1,39 @@
+// For format details, see https://aka.ms/vscode-remote/devcontainer.json or this file's README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.137.0/containers/go
 {
-    "name": "Codespaces Go Template Repository",
-    "extensions": [
-        "coenraads.bracket-pair-colorizer-2",
-        "eamodio.gitlens",
-        "github.vscode-pull-request-github",
-        "ms-azuretools.vscode-docker",
-        "ms-vsliveshare.vsliveshare",
-        "vscode-icons-team.vscode-icons",
-        "visualstudioexptteam.vscodeintellicode",
-        "ms-vscode.go"
-    ],
-    "dockerFile": "Dockerfile",
-    "settings": {
-        "files.exclude": {
-            "**/CODE_OF_CONDUCT.md": true,
-            "**/LICENSE": true
-        }
-    }
+	"name": "Go",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": "..",
+		"args": {
+			// Update the VARIANT arg to pick a version of Go: 1, 1.16, 1.15
+			"VARIANT": "1.16",
+			// Options
+			"INSTALL_NODE": "false",
+			"NODE_VERSION": "lts/*"
+		}
+	},
+	"runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": { 
+		"terminal.integrated.shell.linux": "/bin/bash",
+		"go.useGoProxyToCheckForToolUpdates": false,
+		"go.gopath": "/go",
+		"go.useLanguageServer": true
+	},
+	
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"golang.Go"
+	],
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [9000],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "go version",
+
+	// Uncomment to connect as a non-root user. See https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "vscode"
 }
